@@ -24,15 +24,24 @@ class NewsAdder extends React.Component {
         const text = this.text.current;
         const bigText = this.bigText.current;
         const id = Math.floor(Math.random() * 999);
-        this.props.callBack({
+        const latestNews = {
             id,
             author,
-            text:text.value,
-            bigText:bigText.value
-        });
+            text: text.value,
+            bigText: bigText.value
+        };
+        this.props.callBack(latestNews);
+        this.setState({
+            isLoading: true
+        })
+        fetch('http://localhost:2000/send',{
+            method : "post",
+            mode : "no-cors",
+            body : JSON.stringify(latestNews)
+        })
         // я просто очень сильно заебался. И да, Я знаю что это говнокод
-        text.value="";
-        bigText.value="";
+        text.value = "";
+        bigText.value = "";
         this.setState({
             textNotEmpty: false,
             bigTextNotEmpty: false
@@ -46,7 +55,7 @@ class NewsAdder extends React.Component {
     onFieldChange = (e) => {
         e = e.currentTarget;
         this.setState({
-            [e.getAttribute("data")] : e.value.trim().length > 0
+            [e.getAttribute("data")]: e.value.trim().length > 0
         });
     }
     validate = () => {
