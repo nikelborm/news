@@ -10,7 +10,7 @@
     "reactstrap": "^8.2.0"
   },
   "scripts": {
-    "start server": "react-scripts start",
+    "start_server": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
