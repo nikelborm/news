@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 
 class NewsAdder extends React.Component {
     constructor(props) {
@@ -31,13 +30,17 @@ class NewsAdder extends React.Component {
             bigText: bigText.value
         };
         this.props.callBack(latestNews);
-        this.setState({
-            isLoading: true
-        })
-        fetch('http://localhost:2000/send',{
-            method : "post",
-            mode : "no-cors",
-            body : JSON.stringify(latestNews)
+        console.log(latestNews);
+        fetch(document.location.href+'send',{
+            method: 'post',
+            mode:"cors",
+            body : JSON.stringify(latestNews),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(response => {
+            console.log(response);
+            console.log(response.json());
         })
         // я просто очень сильно заебался. И да, Я знаю что это говнокод
         text.value = "";
