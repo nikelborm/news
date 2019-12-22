@@ -23,9 +23,9 @@ app.post("/send", function (request, response) {
     const newMsg = { id:data.id, author:data.author, text:data.text, bigText:data.bigText };
     const fileContent = fs.readFileSync("newsData.json", "utf8")
     const newfileContent = JSON.stringify(
-        JSON.parse(
+        newMsg.concat(JSON.parse(
             fileContent
-        ).concat(newMsg)
+        ))
     );
     // const fileContent = JSON.stringify(newMsg.concat(JSON.parse(fs.readFileSync("newsData.json", "utf8"))));
     console.log(newfileContent);
