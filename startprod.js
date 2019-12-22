@@ -21,10 +21,15 @@ app.post("/load", function (request, response) {
 app.post("/send", function (request, response) {
     const data = request.body;
     const newMsg = { id:data.id, author:data.author, text:data.text, bigText:data.bigText };
-    // const fileContent = JSON.stringify(JSON.parse(fs.readFileSync("newsData.json", "utf8")).concat(newMsg));
-    const fileContent = JSON.stringify(newMsg.concat(JSON.parse(fs.readFileSync("newsData.json", "utf8"))));
-    console.log(fileContent);
-    fs.writeFileSync("newsData.json",fileContent);
-    response.send(fileContent);
+    const fileContent = fs.readFileSync("newsData.json", "utf8")
+    const newfileContent = JSON.stringify(
+        JSON.parse(
+            fileContent
+        ).concat(newMsg)
+    );
+    // const fileContent = JSON.stringify(newMsg.concat(JSON.parse(fs.readFileSync("newsData.json", "utf8"))));
+    console.log(newfileContent);
+    fs.writeFileSync("newsData.json",newfileContent);
+    response.send(newfileContent);
 });
 app.listen(port);
