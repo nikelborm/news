@@ -38,7 +38,6 @@ class NewsAdder extends React.Component {
                 'Content-Type': 'application/json'
             })
         }).then(response => {
-            console.log(response);
             console.log(response.json());
         })
         // я просто очень сильно заебался. И да, Я знаю что это говнокод
@@ -67,9 +66,30 @@ class NewsAdder extends React.Component {
     render() {
         return (
             <form className="add cf">
-                <input  data='authorNotEmpty' className='add_author' onChange={this.onFieldChange}  defaultValue='' placeholder='Ваше имя'      ref={this.author} type='text'/>
-                <textarea data='textNotEmpty' className='add_text' onChange={this.onFieldChange}    defaultValue='' placeholder='Заголовок'     ref={this.text}></textarea>
-                <textarea data='bigTextNotEmpty' className='add_text' onChange={this.onFieldChange} defaultValue='' placeholder='Текст новости' ref={this.bigText}></textarea>
+                <input  data='authorNotEmpty'
+                    className='add_author'
+                    onChange={this.onFieldChange}
+                    defaultValue=''
+                    placeholder='Ваше имя'
+                    ref={this.author}
+                    type='text'
+                />
+                <textarea
+                    data='textNotEmpty'
+                    className='add_text'
+                    onChange={this.onFieldChange}
+                    defaultValue=''
+                    placeholder='Заголовок'
+                    ref={this.text}
+                ></textarea>
+                <textarea
+                    data='bigTextNotEmpty'
+                    className='add_text'
+                    onChange={this.onFieldChange}
+                    defaultValue=''
+                    placeholder='Текст новости'
+                    ref={this.bigText}
+                ></textarea>
                 <label className='add_checkrule'>
                     <input type='checkbox' defaultChecked={false} ref='checkrule' onChange={this.onCheckRuleClick}/>
                     Я согласен справилами

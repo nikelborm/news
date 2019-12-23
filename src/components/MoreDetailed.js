@@ -14,11 +14,14 @@ class MoreDetailed extends Component {
     }
     render() {
         const { visible } = this.state;
+        const { bigText } = this.props;
         return (
             <React.Fragment>
             {/*eslint-disable-next-line*/}
-                <a onClick={this.readMoreClick} href="" className='news_readmore'>{visible ? 'Свернуть' : 'Раскрыть'}</a>
-                {visible && <p className="news_big-text">{this.props.bigText}</p>}
+                <a onClick={this.readMoreClick} href="" className='news_readmore'>
+                    {visible ? 'Свернуть' : 'Раскрыть'}
+                </a>
+                {visible && <p className="news_big-text">{bigText}</p>}
             </React.Fragment>
         );
     }
