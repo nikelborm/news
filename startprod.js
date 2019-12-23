@@ -7,10 +7,18 @@ const port = process.env.PORT || 8080;
 const mongoLink = process.env.MONGODB_URI || "mongodb://myUserAdmin:0000@localhost:27017/admin"
 console.log(process.env.MONGODB_URI);
 
-const mongoClient = new MongoClient(mongoLink, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+function newMongoConnection(callback){
+    const mongoClient = new MongoClient(mongoLink, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+    mongoClient.connect(function (err, client) {
+        if (err) return console.log(err);
+        const db = client.db();
+        callback(db)
+        client.close()
+    });
+}
 const app = express();
 
 app.use(favicon(__dirname + '/build/favicon.ico'));
@@ -23,29 +31,23 @@ app.get('/', function (req, res) {
 });
 // const jsonParser = express.json();
 app.post("/load", function (request, response) {
-    mongoClient.connect(function (err, client) {
-        if (err) return console.log(err);
-        const db = client.db();
+    newMongoConnection(function (db) {
         const collection = db.collection("news");
-
         collection.find().toArray(function (err, results) {
+            console.log(err);
+            console.log(results);
             response.send(JSON.stringify(results));
         });
-        client.close();
     });
 });
 app.post("/send", function (request, response) {
-    const data = request.body;
-    mongoClient.connect(function (err, client) {
-        if (err) return console.log(err);
-        const db = client.db();
+    newMongoConnection(function (db) {
+        const data = request.body;
         const collection = db.collection("news");
-
         collection.insertOne(data, function (err, result) {
             if (err) return console.log(err);
             response.send(JSON.stringify(result));
         });
-        client.close();
     });
 });
 app.listen(port);
