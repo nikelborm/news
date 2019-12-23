@@ -28,11 +28,12 @@ app.post("/load", function (request, response) {
         const db = client.db();
         console.log("db defined");
         const collection = db.collection("news");
-
+        console.log("collection defined");
         if (err) return console.log(err);
 
         collection.find().toArray(function (err, results) {
             response.send(results);
+            console.log(results);
             // response.send(fs.readFileSync("newsData.json", "utf8"));
         });
         client.close();
