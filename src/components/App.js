@@ -23,7 +23,7 @@ class App extends Component {
                 return response.json()
             })
             .then(data => {
-                this.setState({ isLoading: false, newsNow: data })
+                this.setState({ isLoading: false, newsNow: data.reverse() })
             })
     }
     // затем обновляем новый массив новостей в this.state.news
