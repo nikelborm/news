@@ -30,7 +30,6 @@ app.post("/load", function (request, response) {
 
         collection.find().toArray(function (err, results) {
             response.send(results);
-            console.log(results);
             // response.send(fs.readFileSync("newsData.json", "utf8"));
         });
         client.close();
@@ -44,7 +43,6 @@ app.post("/send", function (request, response) {
         text: data.text,
         bigText: data.bigText
     };
-    console.log(newMsg);
     mongoClient.connect(function (err, client) {
         if (err) return console.log(err);
 
@@ -52,11 +50,11 @@ app.post("/send", function (request, response) {
         const collection = db.collection("news");
         collection.insertOne(newMsg, function (err, result) {
             console.log(err);
-            console.log(result.ops);
+            console.log(result);
             if (err) {
                 response.send(err);
             } else {
-                response.send(result.ops);
+                response.send(result);
             }
         });
         client.close();
