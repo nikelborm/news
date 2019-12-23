@@ -5,9 +5,8 @@ const path = require('path');
 
 const port = process.env.PORT || 8080;
 const mongoLink = process.env.MONGODB_URI || "mongodb://myUserAdmin:0000@localhost:27017/admin"
-console.log(process.env.MONGODB_URI);
 
-function newMongoConnection(callback){
+function newMongoConnection(callback) {
     const mongoClient = new MongoClient(mongoLink, {
         useNewUrlParser: true,
         useUnifiedTopology: true
