@@ -2,7 +2,7 @@ const express = require('express');
 const favicon = require('express-favicon');
 const MongoClient = require("mongodb").MongoClient;
 const path = require('path');
-const fs = require("fs");
+// const fs = require("fs");
 
 const port = process.env.PORT || 8080;
 const mongoLink = process.env.MONGODB_URI || "mongodb://myUserAdmin:0000@localhost"
@@ -24,6 +24,8 @@ app.get('/', function (req, res) {
 // const jsonParser = express.json();
 app.post("/load", function (request, response) {
     mongoClient.connect(function (err, client) {
+        console.log("connection load");
+        
         const db = client.db();
         const collection = db.collection("news");
 
