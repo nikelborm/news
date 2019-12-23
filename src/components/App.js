@@ -3,28 +3,33 @@ import NewsAdder from './NewsAdder';
 import News from './News';
 class App extends Component {
     state = {
-        newsNow : null,
+        newsNow: null,
         isLoading: false
     }
     addNews = (data) => {
         // 1) для добавления наверх (затратно)
         const nextNews = [data, ...this.state.newsNow]
-        this.setState({ newsNow: nextNews })
+        this.setState({
+            newsNow: nextNews
+        })
         // 2) для добавления в конец
         // this.setState({
         //     newsNow: this.state.newsNow.concat(data)
         // });
     }
     componentDidMount() {
-        this.setState({ isLoading: true });
-        fetch(document.location.href+'load',{method:"post"})
-            .then(response => {
-                console.log(response);
-                return response.json()
+        this.setState({
+            isLoading: true
+        });
+        fetch(document.location.href + 'load', { method: "post" })
+        .then(response => {
+            const data = response.json()
+            console.log(data);
+            this.setState({
+                isLoading: false,
+                newsNow: data.reverse()
             })
-            .then(data => {
-                this.setState({ isLoading: false, newsNow: data.reverse() })
-            })
+        })
     }
     // затем обновляем новый массив новостей в this.state.news
     render() {
