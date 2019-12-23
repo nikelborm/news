@@ -24,11 +24,8 @@ app.get('/', function (req, res) {
 // const jsonParser = express.json();
 app.post("/load", function (request, response) {
     mongoClient.connect(function (err, client) {
-        console.log("connection load");
         const db = client.db();
-        console.log("db defined");
         const collection = db.collection("news");
-        console.log("collection defined");
         if (err) return console.log(err);
 
         collection.find().toArray(function (err, results) {
@@ -47,12 +44,15 @@ app.post("/send", function (request, response) {
         text: data.text,
         bigText: data.bigText
     };
+    console.log(newMsg);
     mongoClient.connect(function (err, client) {
         if (err) return console.log(err);
 
         const db = client.db();
         const collection = db.collection("news");
         collection.insertOne(newMsg, function (err, result) {
+            console.log(err);
+            console.log(result.ops);
             if (err) {
                 response.send(err);
             } else {
