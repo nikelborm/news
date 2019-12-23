@@ -33,7 +33,6 @@ class NewsAdder extends React.Component {
         console.log(latestNews);
         fetch(document.location.href+'send',{
             method: 'post',
-            mode:"cors",
             body : JSON.stringify(latestNews),
             headers: new Headers({
                 'Content-Type': 'application/json'
