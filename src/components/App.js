@@ -23,7 +23,9 @@ class App extends Component {
         });
         fetch(document.location.href + 'load', { method: "post" })
         .then(response => {
-            const data = response.json()
+            return response.json()
+        })
+        .then(data => {
             console.log(data);
             this.setState({
                 isLoading: false,
