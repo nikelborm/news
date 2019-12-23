@@ -25,8 +25,8 @@ app.get('/', function (req, res) {
 app.post("/load", function (request, response) {
     mongoClient.connect(function (err, client) {
         console.log("connection load");
-        
         const db = client.db();
+        console.log("db defined");
         const collection = db.collection("news");
 
         if (err) return console.log(err);
