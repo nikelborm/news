@@ -66,7 +66,8 @@ class NewsAdder extends React.Component {
     render() {
         return (
             <form className="add cf">
-                <input  data='authorNotEmpty'
+                <input
+                    data='authorNotEmpty'
                     className='add_author'
                     onChange={this.onFieldChange}
                     defaultValue=''
